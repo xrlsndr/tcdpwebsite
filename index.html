@@ -866,13 +866,21 @@
         .feature-card {
           padding: 1.15rem;
         }
-        /* Mobile: reduce image sizes so content fits better */
-        .feature-media { min-height: 280px; }
-        .feature-media img { max-height: 320px; height: auto; object-fit: cover; }
-        .topic-media { min-height: 140px; aspect-ratio: 1 / 0.9; }
-        .topic-media img { max-height: 200px; width: 100%; height: 100%; object-fit: cover; }
-        .modal-content img { height: auto; max-height: 50vh; }
-        .detail-panel img { height: auto; max-height: 160px; }
+        /* Mobile: aggressively reduce image sizes so content fits vertically */
+        .feature-media { min-height: 160px; }
+        .feature-media img { max-height: 200px; height: auto; width: 100%; object-fit: cover; }
+
+        /* Allow topic cards to collapse to natural height and make media small */
+        .topic-card { height: auto; min-height: 0; padding-right: 20px; }
+        .topic-media { flex: none; min-height: 100px; aspect-ratio: 16/9; }
+        .topic-media img { max-height: 120px; width: 100%; height: auto; object-fit: cover; }
+
+        /* Shrink detail/modal images to viewport-friendly sizes */
+        .detail-panel img { height: auto; max-height: 110px; }
+        .modal-content img { height: auto; max-height: 40vh; }
+
+        /* Let titles wrap so text doesn't overlap images */
+        .topic-card h3 { white-space: normal; overflow: visible; }
       }
     </style>
   </head>
