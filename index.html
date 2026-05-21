@@ -1208,6 +1208,45 @@
       // Topic cards are no longer clickable to toggle detail panels; menu shows on hover
       const topicCards = document.querySelectorAll('.topic-card');
 
+      // Mobile: tap the whole card to toggle its detail panel (replaces the hidden "Open" button)
+      function isMobileView() {
+        return window.matchMedia('(max-width: 720px)').matches;
+      }
+
+      topicCards.forEach(card => {
+        card.addEventListener('click', (ev) => {
+          if (!isMobileView()) return; // only on small screens
+          // ignore clicks on actual controls inside the card
+          if (ev.target.closest('button, a')) return;
+
+          const hidden = card.querySelector('.panel-detail');
+          if (!hidden) return;
+
+          // populate detail content before opening
+          sanitizeAndRenderCard(card);
+
+          const opened = card.classList.toggle('is-open');
+          const detailPanel = card.querySelector('.detail-panel');
+          if (detailPanel) detailPanel.setAttribute('aria-hidden', opened ? 'false' : 'true');
+
+          if (opened) {
+            // bring the card into view so the opened panel is visible
+            card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      // When switching back to desktop, close any opened mobile panels
+      window.addEventListener('resize', () => {
+        if (!isMobileView()) {
+          topicCards.forEach(c => {
+            c.classList.remove('is-open');
+            const dp = c.querySelector('.detail-panel');
+            if (dp) dp.setAttribute('aria-hidden', 'true');
+          });
+        }
+      });
+
       // Shared modal for full view + 300-word textbox
       const modal = document.createElement('div');
       modal.id = 'fullModal';
