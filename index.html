@@ -866,18 +866,18 @@
         .feature-card {
           padding: 1.15rem;
         }
-        /* Mobile: aggressively reduce image sizes so content fits vertically */
-        .feature-media { min-height: 160px; }
-        .feature-media img { max-height: 200px; height: auto; width: 100%; object-fit: cover; }
+        /* Mobile: aggressively reduce image sizes and ensure they are clipped to card corners */
+        .feature-media { min-height: 140px; height: 140px; border-radius: 8px; overflow: hidden; }
+        .feature-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* Allow topic cards to collapse to natural height and make media small */
-        .topic-card { height: auto; min-height: 0; padding-right: 20px; }
-        .topic-media { flex: none; min-height: 100px; aspect-ratio: 16/9; }
-        .topic-media img { max-height: 120px; width: 100%; height: auto; object-fit: cover; }
+        /* Allow topic cards to collapse to natural height and make media fixed-height so images never overflow */
+        .topic-card { height: auto; min-height: 0; padding-right: 20px; border-radius: 8px; overflow: hidden; }
+        .topic-media { flex: none; min-height: 100px; height: 100px; aspect-ratio: 16/9; border-radius: 8px 8px 0 0; overflow: hidden; }
+        .topic-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* Shrink detail/modal images to viewport-friendly sizes */
-        .detail-panel img { height: auto; max-height: 110px; }
-        .modal-content img { height: auto; max-height: 40vh; }
+        /* Shrink detail/modal images to viewport-friendly sizes and ensure rounding */
+        .detail-panel img { height: auto; max-height: 110px; border-radius: 6px; display: block; }
+        .modal-content img { height: auto; max-height: 40vh; display: block; border-radius: 6px; }
 
         /* Let titles wrap so text doesn't overlap images */
         .topic-card h3 { white-space: normal; overflow: visible; }
