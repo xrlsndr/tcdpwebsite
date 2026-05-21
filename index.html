@@ -866,6 +866,13 @@
         .feature-card {
           padding: 1.15rem;
         }
+        /* Mobile: reduce image sizes so content fits better */
+        .feature-media { min-height: 280px; }
+        .feature-media img { max-height: 320px; height: auto; object-fit: cover; }
+        .topic-media { min-height: 140px; aspect-ratio: 1 / 0.9; }
+        .topic-media img { max-height: 200px; width: 100%; height: 100%; object-fit: cover; }
+        .modal-content img { height: auto; max-height: 50vh; }
+        .detail-panel img { height: auto; max-height: 160px; }
       }
     </style>
   </head>
